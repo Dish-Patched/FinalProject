@@ -12,7 +12,7 @@ DEPS 		 := ${INCLUDE_DIRS}/avl.h ${INCLUDE_DIRS}/binomial.h ${INCLUDE_DIRS}/avlH
 all: avl.o avlHash.o binomial.o final.o hash.o mainFinal.o finalrun
 
 clean:
-	rm $(OBJS) blankrun
+	rm $(OBJS) finalrun
 
 
 avl.o: avl.cpp ${DEPS}
