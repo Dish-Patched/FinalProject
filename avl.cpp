@@ -1,3 +1,5 @@
+#include "avl.h"
+
 //================ PRIVATE ================//
 
 void AVLTree::destroyTree(Node* node)
