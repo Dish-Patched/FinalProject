@@ -95,8 +95,7 @@ Node* AVLTree::insert(Node* node, int key)
     else if (key > node->key) 
         node->right = insert(node->right, key); 
     else
-        return 1;
-        //throw MyException("Duplicate value found");
+        return;
 
     //Perform rotations
     node->height = 1 + max(height(node->left), height(node->right)); 
@@ -139,8 +138,7 @@ Node* AVLTree::minValueNode(Node* node)
 Node* AVLTree::remove(Node* node, int key)
 {
     if (node == nullptr)
-        return 1;
-    //throw MyException("Error, key not found");
+        return;
 
     if (key < node->key)
         node->left = remove(node->left, key);
