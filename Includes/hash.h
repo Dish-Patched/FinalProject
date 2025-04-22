@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <fstream>
 #include <chrono>
-#include "AVL/avl.h"
+#include "avl.h"
 
 using namespace std;
 
