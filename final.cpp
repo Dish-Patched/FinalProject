@@ -1,13 +1,6 @@
-#include <fstream>
-#include <sstream>
-#include <cctype>
-#include <string>
-#include <vector>
+#include "final.h"
 
-#include "hash.h"
-using namespace std;
-
-string cleanWord(const string& word) {    // so fresh and so clean
+string Final::cleanWord(const string& word) {    // so fresh and so clean
     string cleaned;
     for (char c : word) {
         if (isalnum(c)) cleaned += tolower(c);
@@ -15,7 +8,7 @@ string cleanWord(const string& word) {    // so fresh and so clean
     return cleaned;
 }
 
-void loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table) {
+void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table) {
     for (const string& filename : filenames) {
         ifstream file(filename);
         if (!file) {
