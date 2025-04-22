@@ -13,6 +13,7 @@ using namespace std;
 class Final
 {
     public:
+    Final();
     string cleanWord(const string& word);
     void loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table); 
 

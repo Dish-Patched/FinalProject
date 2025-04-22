@@ -1,5 +1,10 @@
 #include "final.h"
 
+Final:: Final()
+{
+
+}
+
 string Final::cleanWord(const string& word) {    // so fresh and so clean
     string cleaned;
     for (char c : word) {
@@ -34,4 +39,15 @@ void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& t
 
         file.close();
     }
+}
+
+int main() {
+    vector<string> files = {"BeaverChefs.txt", "DogWizards.txt", "EvilCats.txt", "EvilFox.txt", "ForestOwl.txt", "FutureRabbit.txt", "GnomeNecromancy.txt", "LionRoar.txt", "MarsUprising.txt", "MonkeyBusiness.txt", "StormTurtle.txt", "TortoiseandHare.txt"};
+    HashTable myTable(1000, CHAINING_BST); // or any other variant
+
+    Final a; 
+
+    a.loadWordsIntoHashTable(files, myTable);
+
+    myTable.displayStats(); // Optional
 }
