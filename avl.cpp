@@ -95,7 +95,7 @@ Node* AVLTree::insert(Node* node, int key)
     else if (key > node->key) 
         node->right = insert(node->right, key); 
     else
-        return;
+        return nullptr;
 
     //Perform rotations
     node->height = 1 + max(height(node->left), height(node->right)); 
@@ -138,7 +138,7 @@ Node* AVLTree::minValueNode(Node* node)
 Node* AVLTree::remove(Node* node, int key)
 {
     if (node == nullptr)
-        return;
+        return nullptr;
 
     if (key < node->key)
         node->left = remove(node->left, key);

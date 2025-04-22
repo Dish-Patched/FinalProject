@@ -31,7 +31,7 @@ class HashTable {
         // Storage containers for the different variants
         vector<vector<pair<string, int>>> tableVector;
         vector<list<pair<string, int>>> tableList;
-        vector<AVLTree> tableBST; // (uses AVLTree)
+        vector<AVLHashTree> tableBST; // (uses AVLTree)
         vector<pair<string, int>> tableProbing;
 
         // Hash Functions and Collision Handling

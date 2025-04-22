@@ -1,14 +1,14 @@
 #include "avlHash.h"
 
-AVLTree::AVLTree() {
+AVLHashTree::AVLHashTree() {
     root = nullptr;
 }
 
-AVLTree::~AVLTree() {
+AVLHashTree::~AVLHashTree() {
     destroyTree(root);
 }
 
-void AVLTree::destroyTree(Node* node) {
+void AVLHashTree::destroyTree(Node* node) {
     if (node) {
         destroyTree(node->left);
         destroyTree(node->right);
@@ -16,21 +16,21 @@ void AVLTree::destroyTree(Node* node) {
     }
 }
 
-int AVLTree::height(Node* node) {
+int AVLHashTree::height(Node* node) {
     if (node)
         return node->height;
     else
         return -1;
 }
 
-int AVLTree::getBalanceFactor(Node* node) {
+int AVLHashTree::getBalanceFactor(Node* node) {
     if (node)
         return height(node->left) - height(node->right);
     else
         return 0;
 }
 
-Node* AVLTree::rotateRight(Node* y) {
+Node* AVLHashTree::rotateRight(Node* y) {
     Node* x = y->left;
     Node* T2 = x->right;
 
@@ -43,7 +43,7 @@ Node* AVLTree::rotateRight(Node* y) {
     return x;
 }
 
-Node* AVLTree::rotateLeft(Node* x) {
+Node* AVLHashTree::rotateLeft(Node* x) {
     Node* y = x->right;
     Node* T2 = y->left;
 
@@ -56,7 +56,7 @@ Node* AVLTree::rotateLeft(Node* x) {
     return y;
 }
 
-Node* AVLTree::insert(Node* node, const pair<string, int>& data) {
+Node* AVLHashTree::insert(Node* node, const pair<string, int>& data) {
     if (!node) return new Node(data);
 
     if (data.first < node->data.first)
@@ -91,18 +91,18 @@ Node* AVLTree::insert(Node* node, const pair<string, int>& data) {
     return node;
 }
 
-void AVLTree::insert(const string& key, int value) {
+void AVLHashTree::insert(const string& key, int value) {
     root = insert(root, {key, value});
 }
 
-Node* AVLTree::minValueNode(Node* node) {
+Node* AVLHashTree::minValueNode(Node* node) {
     Node* current = node;
     while (current->left)
         current = current->left;
     return current;
 }
 
-Node* AVLTree::remove(Node* node, const string& key) {
+Node* AVLHashTree::remove(Node* node, const string& key) {
     if (!node) return node;
 
     if (key < node->data.first)
@@ -145,7 +145,7 @@ Node* AVLTree::remove(Node* node, const string& key) {
     return node;
 }
 
-bool AVLTree::remove(const string& key) {
+bool AVLHashTree::remove(const string& key) {
     int dummyValue; // Temporary variable to check if the key exists
     if (search(key, dummyValue)) {
         root = remove(root, key);
@@ -154,7 +154,7 @@ bool AVLTree::remove(const string& key) {
     return false;
 }
 
-Node* AVLTree::search(Node* node, const string& key, int& value) {
+Node* AVLHashTree::search(Node* node, const string& key, int& value) {
     if (!node) return nullptr;
 
     if (key == node->data.first) {
@@ -167,11 +167,11 @@ Node* AVLTree::search(Node* node, const string& key, int& value) {
     }
 }
 
-bool AVLTree::search(const string& key, int& value) {
+bool AVLHashTree::search(const string& key, int& value) {
     return search(root, key, value) != nullptr;
 }
 
-void AVLTree::printTree(Node* root, int space) {
+void AVLHashTree::printTree(Node* root, int space) {
     const int COUNT = 10;
 
     if (!root) return;
@@ -188,19 +188,19 @@ void AVLTree::printTree(Node* root, int space) {
     printTree(root->left, space);
 }
 
-void AVLTree::print() {
+void AVLHashTree::print() {
     printTree(root, 0);
     cout << endl;
 }
 
-void AVLTree::inOrderTraversal(Node* node, vector<pair<string, int>>& result) const {
+void AVLHashTree::inOrderTraversal(Node* node, vector<pair<string, int>>& result) const {
     if (!node) return;
     inOrderTraversal(node->left, result);
     result.push_back(node->data);
     inOrderTraversal(node->right, result);
 }
 
-vector<pair<string, int>> AVLTree::inOrderTraversal() const {
+vector<pair<string, int>> AVLHashTree::inOrderTraversal() const {
     vector<pair<string, int>> result;
     inOrderTraversal(root, result);
     return result;

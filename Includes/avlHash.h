@@ -1,5 +1,5 @@
-#ifndef AVLTREE_H
-#define AVLTREE_H
+#ifndef AVLHASHTREE_H
+#define AVLHASHTREE_H
 
 #include <iostream>
 #include <string>
@@ -21,10 +21,10 @@ struct Node {
     }
 };
 
-class AVLTree {
+class AVLHashTree {
 public:
-    AVLTree();
-    ~AVLTree();
+    AVLHashTree();
+    ~AVLHashTree();
 
     void insert(const string& key, int value);
     bool remove(const string& key);

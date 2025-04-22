@@ -4,25 +4,34 @@ INCLUDE_DIRS := Includes
 CC 			 := g++
 CFLAGS 		 := -I$(INCLUDE_DIRS)
 
-OBJS 		 := customErrorClass.o blank.o main.o
-DEPS 		 := ${INCLUDE_DIRS}/customErrorClass.h ${INCLUDE_DIRS}/binomial.h ${INCLUDE_DIRS}/blank.h
+OBJS 		 := avl.o avlHash.o binomial.o final.o hash.o mainFinal.o
+DEPS 		 := ${INCLUDE_DIRS}/avl.h ${INCLUDE_DIRS}/binomial.h ${INCLUDE_DIRS}/avlHash.h ${INCLUDE_DIRS}/final.h ${INCLUDE_DIRS}/hash.h
 
 .PHONY: clean all
 
-all: customErrorClass.o binomial.o main.o blankrun
+all: avl.o avlHash.o binomial.o final.o hash.o mainFinal.o finalrun
 
 clean:
 	rm $(OBJS) blankrun
 
 
-customErrorClass.o: customErrorClass.cpp ${DEPS}
-	$(CC) -c -o $@ $(CFLAGS) $<
-
 avl.o: avl.cpp ${DEPS}
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-main.o: main.cpp ${DEPS}
+avlHash.o: avlHash.cpp ${DEPS}
+	$(CC) -c -o $@ $(CFLAGS) $<
+	
+final.o: final.cpp ${DEPS}
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-blankrun: $(OBJS)
+binomial.o: binomial.cpp ${DEPS}
+	$(CC) -c -o $@ $(CFLAGS) $<	
+
+hash.o: hash.cpp ${DEPS}
+	$(CC) -c -o $@ $(CFLAGS) $<		
+
+mainFinal.o: mainFinal.cpp ${DEPS}
+	$(CC) -c -o $@ $(CFLAGS) $<
+
+finalrun: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS)
