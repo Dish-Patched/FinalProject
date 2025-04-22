@@ -3,7 +3,7 @@
 #include <string>
 
 int main() {
-    std::ifstream file("example.txt");
+    std::ifstream file("EvilCats.txt");
     std::string word;
 
     if (!file) {
