@@ -1,20 +1,44 @@
-#include <iostream>
 #include <fstream>
+#include <sstream>
+#include <cctype>
 #include <string>
+#include <vector>
 
-int main() {
-    std::ifstream file("EvilCats.txt");
-    std::string word;
+#include "hash.h"
+using namespace std;
 
-    if (!file) {
-        std::cerr << "Error opening file.\n";
-        return 1;
+string cleanWord(const string& word) {    // so fresh and so clean
+    string cleaned;
+    for (char c : word) {
+        if (isalnum(c)) cleaned += tolower(c);
     }
+    return cleaned;
+}
 
-    while (file >> word) {
-        std::cout << word << std::endl;
+void loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table) {
+    for (const string& filename : filenames) {
+        ifstream file(filename);
+        if (!file) {
+            cerr << "Error opening file: " << filename << endl;
+            continue;
+        }
+
+        string line, word;
+        while (getline(file, line)) {
+            stringstream ss(line);
+            while (ss >> word) {
+                word = cleanWord(word); // Clean and normalize
+                if (!word.empty()) {
+                    int count = 0;
+                    if (table.search(word, count)) {
+                        table.insert(word, count + 1); // Update frequency
+                    } else {
+                        table.insert(word, 1); // First occurrence
+                    }
+                }
+            }
+        }
+
+        file.close();
     }
-
-    file.close();
-    return 0;
 }
