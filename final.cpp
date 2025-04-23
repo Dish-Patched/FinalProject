@@ -1,11 +1,11 @@
 #include "final.h"
 
-Final:: Final()
-{
-
+Final::Final() 
+{ 
+    
 }
 
-string Final::cleanWord(const string& word) {    // so fresh and so clean
+string Final::cleanWord(const string& word) {
     string cleaned;
     for (char c : word) {
         if (isalnum(c)) cleaned += tolower(c);
@@ -22,26 +22,25 @@ void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& t
         }
 
         string line, word;
-        set<string> wordsInFile;  // To avoid inserting the same word multiple times for the same file
+        set<string> wordsInFile;
 
         while (getline(file, line)) {
             stringstream ss(line);
             while (ss >> word) {
-                word = cleanWord(word);  // Clean and normalize the word
+                word = cleanWord(word);
+
                 if (!word.empty() && wordsInFile.find(word) == wordsInFile.end()) {
-                    // If the word is not already processed for this file
                     wordsInFile.insert(word);
 
-                    // Check if the word is already in the table
-                    vector<string> filesContainingWord;
+                    string filesContainingWord;
                     if (table.search(word, filesContainingWord)) {
-                        // Word is found, just add the current file to its list
-                        filesContainingWord.push_back(filename);
-                        table.insert(word, filesContainingWord);  // Update the value (which is the list of files)
+                        // Only add filename if not already present
+                        if (filesContainingWord.find(filename) == string::npos) {
+                            filesContainingWord += "," + filename;
+                            table.insert(word, filesContainingWord);
+                        }
                     } else {
-                        // Word not found, create a new entry with the filename
-                        filesContainingWord.push_back(filename);
-                        table.insert(word, filesContainingWord);
+                        table.insert(word, filename);
                     }
                 }
             }
