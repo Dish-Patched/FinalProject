@@ -33,7 +33,7 @@ void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& t
                     wordsInFile.insert(word);
 
                     // Check if the word is already in the table
-                    vector<pair<string, int>> filesContainingWord;
+                    vector<string> filesContainingWord;
                     if (table.search(word, filesContainingWord)) {
                         // Word is found, just add the current file to its list
                         filesContainingWord.push_back(filename);

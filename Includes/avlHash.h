@@ -8,12 +8,12 @@
 using namespace std;
 
 struct Node {
-    pair<string, int> data; // Store key-value pair
+    pair<string, string> data; // Store key-value pair
     Node* left;
     Node* right;
     int height;
 
-    Node(const pair<string, int>& val) {
+    Node(const pair<string, string>& val) {
         data = val;
         left = nullptr;
         right = nullptr;
@@ -26,18 +26,18 @@ public:
     AVLHashTree();
     ~AVLHashTree();
 
-    void insert(const string& key, int value);
+    void insert(const string& key, const string& value);
     bool remove(const string& key);
-    bool search(const string& key, int& value);
+    bool search(const string& key, const string& value);
     void print();
 
-    void inOrderTraversal(Node* node, vector<pair<string, int>>& result) const;
-    vector<pair<string, int>> inOrderTraversal() const;
+    void inOrderTraversal(Node* node, vector<pair<string, string>>& result) const;
+    vector<pair<string, string>> inOrderTraversal() const;
 
 private:
     Node* root;
 
-    Node* insert(Node* node, const pair<string, int>& data);
+    Node* insert(Node* node, const pair<string, string>& data);
     Node* remove(Node* node, const string& key);
     Node* minValueNode(Node* node);
 
@@ -47,7 +47,7 @@ private:
     Node* rotateRight(Node* y);
     Node* rotateLeft(Node* x);
 
-    Node* search(Node* node, const string& key, int& value);
+    Node* search(Node* node, const string& key, const string& value);
     void printTree(Node* root, int space);
     void destroyTree(Node* node);
 };
