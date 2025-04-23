@@ -8,5 +8,5 @@ int main() {
 
     a.loadWordsIntoHashTable(files, myTable);
 
-    myTable.displayStats(); // Optional
+    myTable.printTable();
 }

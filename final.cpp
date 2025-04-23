@@ -22,16 +22,26 @@ void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& t
         }
 
         string line, word;
+        set<string> wordsInFile;  // To avoid inserting the same word multiple times for the same file
+
         while (getline(file, line)) {
             stringstream ss(line);
             while (ss >> word) {
-                word = cleanWord(word); // Clean and normalize
-                if (!word.empty()) {
-                    int count = 0;
-                    if (table.search(word, count)) {
-                        table.insert(word, count + 1); // Update frequency
+                word = cleanWord(word);  // Clean and normalize the word
+                if (!word.empty() && wordsInFile.find(word) == wordsInFile.end()) {
+                    // If the word is not already processed for this file
+                    wordsInFile.insert(word);
+
+                    // Check if the word is already in the table
+                    vector<pair<string, int>> filesContainingWord;
+                    if (table.search(word, filesContainingWord)) {
+                        // Word is found, just add the current file to its list
+                        filesContainingWord.push_back(filename);
+                        table.insert(word, filesContainingWord);  // Update the value (which is the list of files)
                     } else {
-                        table.insert(word, 1); // First occurrence
+                        // Word not found, create a new entry with the filename
+                        filesContainingWord.push_back(filename);
+                        table.insert(word, filesContainingWord);
                     }
                 }
             }
@@ -40,5 +50,3 @@ void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& t
         file.close();
     }
 }
-
-

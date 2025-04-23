@@ -6,6 +6,7 @@
 #include <cctype>
 #include <string>
 #include <vector>
+#include <set>
 #include "hash.h"
 
 using namespace std;

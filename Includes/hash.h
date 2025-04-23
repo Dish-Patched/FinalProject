@@ -55,6 +55,7 @@ class HashTable {
         // Benchmark and Display
         void benchmarkHashTable(HashTable& table, const vector<pair<string, int>>& data, int numSearch, int numDelete);
         void displayStats();
+        void printTable();
 };
 
 vector<pair<string, int>> readDataFromFile(const string& filename);

@@ -439,3 +439,16 @@ void benchmarkStdUnorderedMap(const vector<pair<string, int>>& data, int numSear
     cout << "Search time: " << searchTime.count() << " microseconds" << endl;
     cout << "Deletion time: " << deleteTime.count() << " microseconds" << endl;
 }
+
+void HashTable::printTable() {
+    for (int i = 0; i < tableSize; ++i) {
+        vector<pair<string, int>> elements = tableBST[i].inOrderTraversal();
+        if (!elements.empty()) {
+            cout << "Bucket [" << i << "]: ";
+            for (const auto& pair : elements) {
+                cout << "(" << pair.first << ", " << pair.second << ") ";
+            }
+            cout << endl;
+        }
+    }
+}
