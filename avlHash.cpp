@@ -56,7 +56,7 @@ Node* AVLHashTree::rotateLeft(Node* x) {
     return y;
 }
 
-Node* AVLHashTree::insert(Node* node, const pair<string, int>& data) {
+Node* AVLHashTree::insert(Node* node, const pair<string, string>& data) {
     if (!node) return new Node(data);
 
     if (data.first < node->data.first)
@@ -91,7 +91,7 @@ Node* AVLHashTree::insert(Node* node, const pair<string, int>& data) {
     return node;
 }
 
-void AVLHashTree::insert(const string& key, int value) {
+void AVLHashTree::insert(const string& key, const string& value) {
     root = insert(root, {key, value});
 }
 
@@ -146,7 +146,7 @@ Node* AVLHashTree::remove(Node* node, const string& key) {
 }
 
 bool AVLHashTree::remove(const string& key) {
-    int dummyValue; // Temporary variable to check if the key exists
+    string dummyValue; // Temporary variable to check if the key exists
     if (search(key, dummyValue)) {
         root = remove(root, key);
         return true;
@@ -154,7 +154,7 @@ bool AVLHashTree::remove(const string& key) {
     return false;
 }
 
-Node* AVLHashTree::search(Node* node, const string& key, int& value) {
+Node* AVLHashTree::search(Node* node, const string& key, string& value) {
     if (!node) return nullptr;
 
     if (key == node->data.first) {
@@ -167,7 +167,7 @@ Node* AVLHashTree::search(Node* node, const string& key, int& value) {
     }
 }
 
-bool AVLHashTree::search(const string& key, int& value) {
+bool AVLHashTree::search(const string& key, string& value) {
     return search(root, key, value) != nullptr;
 }
 
@@ -193,15 +193,15 @@ void AVLHashTree::print() {
     cout << endl;
 }
 
-void AVLHashTree::inOrderTraversal(Node* node, vector<pair<string, int>>& result) const {
+void AVLHashTree::inOrderTraversal(Node* node, vector<pair<string, string>>& result) const {
     if (!node) return;
     inOrderTraversal(node->left, result);
     result.push_back(node->data);
     inOrderTraversal(node->right, result);
 }
 
-vector<pair<string, int>> AVLHashTree::inOrderTraversal() const {
-    vector<pair<string, int>> result;
+vector<pair<string, string>> AVLHashTree::inOrderTraversal() const {
+    vector<pair<string, string>> result;
     inOrderTraversal(root, result);
     return result;
 }
