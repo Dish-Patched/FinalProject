@@ -58,103 +58,104 @@ int HashTable::probe(int index, int i, const string& key) const {
             return index;
     }
 }
-void HashTable::insert(const string& key, int value) {
+void HashTable::insert(const string& key, const string& value) {
     resizeIfNeeded();
     int index = hash1(key);
 
-    switch (method) {
-        case CHAINING_VECTOR:
-            for (auto& pair : tableVector[index]) {
-                if (pair.first == key) {
-                    pair.second = value; // Key already exists, update the value
-                    break;
-                }
-            }
-            tableVector[index].push_back({key, value});
-            elementCount++;
-            break;
+     switch (method) {
+    //     case CHAINING_VECTOR:
+    //         for (auto& pair : tableVector[index]) {
+    //             if (pair.first == key) {
+    //                 pair.second = value; // Key already exists, update the value
+    //                 break;
+    //             }
+    //         }
+    //         tableVector[index].push_back({key, value});
+    //         elementCount++;
+    //         break;
 
-        case CHAINING_LIST: 
-            // complete this
-            for (auto& pair : tableList[index]) 
-            {
-                if (pair.first == key)
-                {
-                    pair.second = value;
-                    break;
-                }
-            }
-            tableList[index].push_back({key, value});
-            elementCount++;
-            break;
+    //     case CHAINING_LIST: 
+    //         // complete this
+    //         for (auto& pair : tableList[index]) 
+    //         {
+    //             if (pair.first == key)
+    //             {
+    //                 pair.second = value;
+    //                 break;
+    //             }
+    //         }
+    //         tableList[index].push_back({key, value});
+    //         elementCount++;
+    //         break;
 
         case CHAINING_BST:
             // complete this - use AVL insert method
             tableBST[index].insert(key, value);
             elementCount++;
             break;
+     };
 
-        case LINEAR_PROBING:
-        case QUADRATIC_PROBING:
-        case DOUBLE_HASHING:
-            // complete this
-            for (int i = 0; i < tableSize; i++)
-            {
-                index = probe(index, i, key);
+    //     case LINEAR_PROBING:
+    //     case QUADRATIC_PROBING:
+    //     case DOUBLE_HASHING:
+    //         // complete this
+    //         for (int i = 0; i < tableSize; i++)
+    //         {
+    //             index = probe(index, i, key);
 
-                if (tableProbing[index].first.empty())
-                {
-                    tableProbing[index] = {key, value};
-                    elementCount++;
-                    break;
-                }
-            }
-            break;
-    }
+    //             if (tableProbing[index].first.empty())
+    //             {
+    //                 tableProbing[index] = {key, value};
+    //                 elementCount++;
+    //                 break;
+    //             }
+    //         }
+    //         break;
+    // }
 }
 
-bool HashTable::search(const string& key, int& value) {
+bool HashTable::search(const string& key, const string& value) {
     // complete this
     int index = hash1(key);
 
     switch(method)
     {
-        case CHAINING_VECTOR:
-            for (auto& pair : tableVector[index]) {
-                if (pair.first == key) {
-                    value = pair.second;
-                    return true;
-                }
-            }
-            return false;
+        // case CHAINING_VECTOR:
+        //     for (auto& pair : tableVector[index]) {
+        //         if (pair.first == key) {
+        //             value = pair.second;
+        //             return true;
+        //         }
+        //     }
+        //     return false;
 
-        case CHAINING_LIST:
-            for (auto& pair : tableList[index]) {
-                if (pair.first == key) {
-                    value = pair.second;
-                    return true;
-                }
-            }
-            return false;
+        // case CHAINING_LIST:
+        //     for (auto& pair : tableList[index]) {
+        //         if (pair.first == key) {
+        //             value = pair.second;
+        //             return true;
+        //         }
+        //     }
+        //     return false;
 
         case CHAINING_BST:
             return tableBST[index].search(key, value);
 
-        case LINEAR_PROBING:
-        case QUADRATIC_PROBING:
-        case DOUBLE_HASHING:
-            for (int i = 0; i < tableSize; i++)
-            {
-                index = probe(index, i, key);
+        // case LINEAR_PROBING:
+        // case QUADRATIC_PROBING:
+        // case DOUBLE_HASHING:
+        //     for (int i = 0; i < tableSize; i++)
+        //     {
+        //         index = probe(index, i, key);
 
-                if (tableProbing[index].first == key)
-                {
-                    value = tableProbing[index].second; 
-                    return true;
-                }
-            }
-            return false;
-    }
+        //         if (tableProbing[index].first == key)
+        //         {
+        //             value = tableProbing[index].second; 
+        //             return true;
+        //         }
+        //     }
+        //     return false;
+    };
     return false;
 }
 

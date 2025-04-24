@@ -48,8 +48,8 @@ class HashTable {
         HashTable(int size, CollisionHandling variant);
         ~HashTable();
 
-        void insert(const string& key, int value); //COMPLETE THIS
-        bool search(const string& key, int& value); // COMPLETE THIS
+        void insert(const string& key, const string& value); //COMPLETE THIS
+        bool search(const string& key, const string& value); // COMPLETE THIS
         bool remove(const string& key); // COMPLETE THIS
 
         // Benchmark and Display
