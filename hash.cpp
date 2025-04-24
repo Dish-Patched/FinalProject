@@ -20,12 +20,11 @@ void HashTable::insert(const string& key, const string& value) {
     string existing;
     int index = hash1(key);
 
-    // Check if the key already exists
     if (!tableBST[index].search(key, existing)) {
-        elementCount++;  // Only increment for new keys
+        elementCount++;  
     }
 
-    tableBST[index].insert(key, value);  // Insert/update AVL
+    tableBST[index].insert(key, value);  
     resizeIfNeeded(); 
 }
 
