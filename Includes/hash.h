@@ -3,62 +3,30 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
 #include <string>
-#include <map>
-#include <unordered_map>
-#include <fstream>
-#include <chrono>
 #include "avlHash.h"
 
 using namespace std;
 
-enum CollisionHandling {
-    CHAINING_VECTOR,
-    CHAINING_LIST,
-    CHAINING_BST,
-    LINEAR_PROBING,
-    QUADRATIC_PROBING,
-    DOUBLE_HASHING
-};
-
 class HashTable {
-    private:
-        int tableSize;
-        int elementCount;
-        CollisionHandling method;
+private:
+    int tableSize;
+    int elementCount;
 
-        // Storage containers for the different variants
-        vector<vector<pair<string, int>>> tableVector;
-        vector<list<pair<string, int>>> tableList;
-        vector<AVLHashTree> tableBST; // (uses AVLTree)
-        vector<pair<string, int>> tableProbing;
+    vector<AVLHashTree> tableBST;  // Only using BST for chaining
 
-        // Hash Functions and Collision Handling
-        int hash1(const string& key) const;
-        int hash2(const string& key) const;  
-        int probe(int index, int i, const string& key) const;   // COMPLETE THIS
-        void rehash(); // COMPLETE THIS
+    int hash1(const string& key) const;
+    void resizeIfNeeded();
+    void rehash();
 
-        // Helper functions
-        int findEmptySlot(const string& key); // COMPLETE THIS
-        void resizeIfNeeded(); // COMPLETE THIS
+public:
+    HashTable(int size);
+    ~HashTable();
 
-    public:
-        HashTable(int size, CollisionHandling variant);
-        ~HashTable();
-
-        void insert(const string& key, const string& value); //COMPLETE THIS
-        bool search(const string& key, const string& value); // COMPLETE THIS
-        bool remove(const string& key); // COMPLETE THIS
-
-        // Benchmark and Display
-        void benchmarkHashTable(HashTable& table, const vector<pair<string, int>>& data, int numSearch, int numDelete);
-        void displayStats();
-        void printTable();
+    void insert(const string& key, const string& value);
+    bool search(const string& key, string& value);
+    bool remove(const string& key);
+    void printTable();  // Optional but useful for debugging
 };
-
-vector<pair<string, int>> readDataFromFile(const string& filename);
-void benchmarkStdUnorderedMap(const vector<pair<string, int>>& data, int numSearch, int numDelete);
 
 #endif
