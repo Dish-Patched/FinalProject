@@ -17,10 +17,16 @@ int HashTable::hash1(const string& key) const {
 }
 
 void HashTable::insert(const string& key, const string& value) {
-    resizeIfNeeded();
+    string existing;
     int index = hash1(key);
-    tableBST[index].insert(key, value);
-    elementCount++;
+
+    // Check if the key already exists
+    if (!tableBST[index].search(key, existing)) {
+        elementCount++;  // Only increment for new keys
+    }
+
+    tableBST[index].insert(key, value);  // Insert/update AVL
+    resizeIfNeeded(); 
 }
 
 bool HashTable::search(const string& key, string& value) {
