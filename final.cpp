@@ -2,6 +2,7 @@
 
 Final::Final() 
 { 
+    
 }
 
 string Final::cleanWord(const string& word) {
