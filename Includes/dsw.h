@@ -2,19 +2,21 @@
 #define DSW_H
 
 #include <iostream>
-#include <math.h>
+#include <cmath>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-struct Node
+struct Node2
 {
-    int data;
-    Node* left;
-    Node* right;
+    pair<string, string> data;
+    Node2* left;
+    Node2* right;
 
-    Node(int val)
+    Node2(const string& key, const string& value)
     {
-        data = val;
+        data = make_pair(key, value);
         left = nullptr;
         right = nullptr;
     }
@@ -22,27 +24,26 @@ struct Node
 
 class BST
 {
-    private:
-        Node* root;
+private:
+    Node2* root;
 
-        // helper functions
-        void rotateRight(Node*& node);
-        void rotateLeft(Node*& node);
-        void createVine();   // Phase 1
-        void rebuildTree(int size);   // Phase 2
-        void performRotations(int count);   //helper for phase 2 (rebuildTree)
-        void printTree(Node* root, int space);  
+    // helper functions
+    void rotateRight(Node2*& node);
+    void rotateLeft(Node2*& node);
+    void createVine();   
+    void rebuildTree(int size);   
+    void performRotations(int count);   
+    void printTree(Node2* root, int space);
+    void insert(Node2*& node, const string& key, const string& value);
 
-    public:
-        BST();
-        ~BST();
-        // helper for the destructor
-        void deleteTree(Node*& root);
+public:
+    BST();
+    ~BST();
+    void deleteTree(Node2*& root);
 
-        void insert(int val);
-        void dswBalance();
-
-        void display();
+    void insert(const string& key, const string& value);
+    void dswBalance();
+    void display();
 };
 
 #endif

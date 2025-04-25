@@ -2,61 +2,51 @@
 
 // -------------------------------PRIVATE-------------------------------------
 
-// when left heavy tree
-void BST::rotateRight(Node*& node)  //passing the parent
+void BST::rotateRight(Node2*& node)
 {
     if(node == nullptr || node->left == nullptr)
         return;
-    
-    // get the node to rotate right
-    Node* leftChild = node->left;
-    // 1) leftnode's right child is going to become parent's left child
+
+    Node2* leftChild = node->left;
     node->left = leftChild->right;
-    // 2) parent is going to be the right child of node that is rotated
     leftChild->right = node;
-    
+
     node = leftChild;
 }
 
-// when right-heavy
-void BST::rotateLeft(Node*& node)
+void BST::rotateLeft(Node2*& node)
 {
     if(node == nullptr || node->right == nullptr)
         return;
 
-    // get the node to rotate left
-    Node* rightChild = node->right;
-    // 1) rightnode's left child is going to become parent's right child
+    Node2* rightChild = node->right;
     node->right = rightChild->left;
-    // 2) parent is going to be left child of the node that is rotated
     rightChild->left = node;
 
     node = rightChild;
 }
 
-
-// Phase 1 - right skewed linked list tree
 void BST::createVine()
 {
     if(root == nullptr)
         return;
 
-    Node* grandparent = nullptr;
-    Node* parent = root;
-    Node* child = root->left;
+    Node2* grandparent = nullptr;
+    Node2* parent = root;
+    Node2* child = root->left;
 
     while(parent != nullptr)
     {
-        if(child != nullptr)   // There is left child => Rotate Right
+        if(child != nullptr)
         {
             rotateRight(parent);
             if(grandparent == nullptr)
                 root = parent;
-            else   
+            else
                 grandparent->right = parent;
             child = parent->left;
         }
-        else   // no left child => just keep moving right
+        else
         {
             grandparent = parent;
             parent = parent->right;
@@ -68,30 +58,26 @@ void BST::createVine()
 
 void BST::rebuildTree(int size)
 {
-    // how many left rotations
-    //initial rotation
-    int highestPowerof2 = (int)pow(2, log2(size+1));
+    int highestPowerof2 = (int)pow(2, floor(log2(size + 1)));
     int m = (size + 1) - highestPowerof2;
 
     performRotations(m);
 
-    // Subsequent Rotations
     for(size = (size - m) / 2; size > 0; size /= 2)
         performRotations(size);
 }
 
-// left rotate every second node based count
 void BST::performRotations(int count)
 {
-    Node* grandparent = nullptr;
-    Node* parent = root;
-    Node* child = root->right;
+    Node2* grandparent = nullptr;
+    Node2* parent = root;
+    Node2* child = root->right;
 
     for(int i = 0; i < count; i++)
     {
         if(child == nullptr)
             break;
-        
+
         rotateLeft(parent);
         if(grandparent == nullptr)
             root = parent;
@@ -105,9 +91,20 @@ void BST::performRotations(int count)
     }
 }
 
-void BST::printTree(Node* root, int space)
+void BST::printTree(Node2* root, int space)
 {
+    if(root == nullptr)
+        return;
 
+    space += 5;
+
+    printTree(root->right, space);
+
+    for(int i = 5; i < space; i++)
+        cout << " ";
+    cout << root->data.first << " : " << root->data.second << endl;
+
+    printTree(root->left, space);
 }
 
 // -------------------------- PUBLIC ----------------------------------
@@ -122,42 +119,33 @@ BST::~BST()
     deleteTree(root);
 }
 
-void BST::deleteTree(Node*& node)
+void BST::deleteTree(Node2*& node)
 {
     if(node == nullptr)
         return;
 
     deleteTree(node->left);
     deleteTree(node->right);
-
     delete node;
 }
 
-void BST::insert(int val)
+void BST::insert(const string& key, const string& value)
 {
-    Node* newNode = new Node(val);
-    if(root == nullptr)
+    insert(root, key, value);
+}
+
+void BST::insert(Node2*& node, const string& key, const string& value)
+{
+    if(node == nullptr)
     {
-        root = newNode;
+        node = new Node2(key, value);
         return;
     }
 
-    Node* curr = root;
-    Node* parent = nullptr;
-
-    while(curr != nullptr)
-    {
-        parent = curr;
-        if(val < curr->data)
-            curr = curr->left;
-        else
-            curr = curr->right;
-    }
-
-    if(val < parent->data)
-        parent->left = newNode;
-    else    
-        parent->right = newNode;
+    if(key < node->data.first)
+        insert(node->left, key, value);
+    else
+        insert(node->right, key, value);
 }
 
 void BST::dswBalance()
@@ -171,7 +159,7 @@ void BST::dswBalance()
     display();
 
     int size = 0;
-    Node* temp = root;
+    Node2* temp = root;
     while(temp != nullptr)
     {
         size++;
