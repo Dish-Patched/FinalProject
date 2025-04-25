@@ -67,7 +67,6 @@ void HashTable::resizeIfNeeded() {
 
 // Double table size and rehash all elements
 void HashTable::rehash() {
-    cout << "HERE" << endl;
     int newSize = tableSize * 2;
     vector<pair<string, string>> oldElements;
 
@@ -84,6 +83,4 @@ void HashTable::rehash() {
     for (const auto& pair : oldElements) {
         insert(pair.first, pair.second);
     }
-
-    cout << "Table resized to " << tableSize << " slots." << endl;
 }

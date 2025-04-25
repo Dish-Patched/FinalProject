@@ -15,21 +15,12 @@ int main() {
 
     set<string> inputWords = a.readWordsFromFile("testfile.txt");
 
-
-        // //cout << "\nSimilarity Scores (lower = more similar):\n";
-    // for (const string& doc : existingDocs) {
-    //     set<string> docWords = a.readWordsFromFile(doc);
-    //     int score = a.calculateScore(inputWords, docWords);
-    //     //cout << doc << ": " << score << endl;
-    // }
-
-    // Calculate similarity scores and insert into the DSW tree
+    //cout << "\nSimilarity Scores (lower = more similar):\n";
     for (const string& doc : files) {
         set<string> docWords = a.readWordsFromFile(doc);
         int score = a.calculateScore(inputWords, docWords);
-
-        // Insert into the tree: (key = score as string, value = filename)
-        plagiarismTree.insert(to_string(score), doc);
+        //cout << doc << ": " << score << endl;
+        plagiarismTree.insert(score, doc);
     }
 
     // Balance the tree after all insertions

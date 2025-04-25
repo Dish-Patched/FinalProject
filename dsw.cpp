@@ -4,7 +4,7 @@
 
 void BST::rotateRight(Node2*& node)
 {
-    if(node == nullptr || node->left == nullptr)
+    if (node == nullptr || node->left == nullptr)
         return;
 
     Node2* leftChild = node->left;
@@ -16,7 +16,7 @@ void BST::rotateRight(Node2*& node)
 
 void BST::rotateLeft(Node2*& node)
 {
-    if(node == nullptr || node->right == nullptr)
+    if (node == nullptr || node->right == nullptr)
         return;
 
     Node2* rightChild = node->right;
@@ -28,19 +28,19 @@ void BST::rotateLeft(Node2*& node)
 
 void BST::createVine()
 {
-    if(root == nullptr)
+    if (root == nullptr)
         return;
 
     Node2* grandparent = nullptr;
     Node2* parent = root;
     Node2* child = root->left;
 
-    while(parent != nullptr)
+    while (parent != nullptr)
     {
-        if(child != nullptr)
+        if (child != nullptr)
         {
             rotateRight(parent);
-            if(grandparent == nullptr)
+            if (grandparent == nullptr)
                 root = parent;
             else
                 grandparent->right = parent;
@@ -50,7 +50,7 @@ void BST::createVine()
         {
             grandparent = parent;
             parent = parent->right;
-            if(parent != nullptr)
+            if (parent != nullptr)
                 child = parent->left;
         }
     }
@@ -63,7 +63,7 @@ void BST::rebuildTree(int size)
 
     performRotations(m);
 
-    for(size = (size - m) / 2; size > 0; size /= 2)
+    for (size = (size - m) / 2; size > 0; size /= 2)
         performRotations(size);
 }
 
@@ -71,38 +71,43 @@ void BST::performRotations(int count)
 {
     Node2* grandparent = nullptr;
     Node2* parent = root;
-    Node2* child = root->right;
+    Node2* child = (parent != nullptr) ? parent->right : nullptr;
 
-    for(int i = 0; i < count; i++)
+    for (int i = 0; i < count; i++)
     {
-        if(child == nullptr)
+        if (child == nullptr)
             break;
 
         rotateLeft(parent);
-        if(grandparent == nullptr)
+
+        if (grandparent == nullptr)
             root = parent;
         else
             grandparent->right = parent;
 
+        // After rotation, parent is now what child was.
         grandparent = parent;
         parent = parent->right;
-        if(parent != nullptr)
-            child = parent->left;
+        if (parent != nullptr)
+            child = parent->right;
+        else
+            child = nullptr;
     }
 }
 
+
 void BST::printTree(Node2* root, int space)
 {
-    if(root == nullptr)
+    if (root == nullptr)
         return;
 
     space += 5;
 
     printTree(root->right, space);
 
-    for(int i = 5; i < space; i++)
+    for (int i = 5; i < space; i++)
         cout << " ";
-    cout << root->data.first << " : " << root->data.second << endl;
+    cout << root->key << " : " << root->value << endl;
 
     printTree(root->left, space);
 }
@@ -121,7 +126,7 @@ BST::~BST()
 
 void BST::deleteTree(Node2*& node)
 {
-    if(node == nullptr)
+    if (node == nullptr)
         return;
 
     deleteTree(node->left);
@@ -129,20 +134,20 @@ void BST::deleteTree(Node2*& node)
     delete node;
 }
 
-void BST::insert(const string& key, const string& value)
+void BST::insert(int key, const string& value)
 {
     insert(root, key, value);
 }
 
-void BST::insert(Node2*& node, const string& key, const string& value)
+void BST::insert(Node2*& node, int key, const string& value)
 {
-    if(node == nullptr)
+    if (node == nullptr)
     {
         node = new Node2(key, value);
         return;
     }
 
-    if(key < node->data.first)
+    if (key < node->key)
         insert(node->left, key, value);
     else
         insert(node->right, key, value);
@@ -150,17 +155,15 @@ void BST::insert(Node2*& node, const string& key, const string& value)
 
 void BST::dswBalance()
 {
-    if(root == nullptr)
+    if (root == nullptr)
         return;
 
     createVine();
-
-    cout << "After Phase 1: ";
-    display();
+    //display(); // You can comment this if you don't want intermediate output
 
     int size = 0;
     Node2* temp = root;
-    while(temp != nullptr)
+    while (temp != nullptr)
     {
         size++;
         temp = temp->right;
