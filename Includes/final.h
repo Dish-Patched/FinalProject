@@ -8,7 +8,7 @@
 #include <vector>
 #include <set>
 #include "hash.h"
-#include "uf.h"
+#include "dsw.h"
 
 using namespace std;
 
