@@ -17,10 +17,20 @@ int HashTable::hash1(const string& key) const {
 }
 
 void HashTable::insert(const string& key, const string& value) {
-    resizeIfNeeded();
+    string existing;
     int index = hash1(key);
+<<<<<<< HEAD
     tableBST[index].insert(key, value);
     elementCount++;        
+=======
+
+    if (!tableBST[index].search(key, existing)) {
+        elementCount++;  
+    }
+
+    tableBST[index].insert(key, value);  
+    resizeIfNeeded(); 
+>>>>>>> 7d46806ef6bcc370d068007f83912e0e6c081e36
 }
 
 bool HashTable::search(const string& key, string& value) {
