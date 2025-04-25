@@ -20,7 +20,7 @@ void HashTable::insert(const string& key, const string& value) {
     resizeIfNeeded();
     int index = hash1(key);
     tableBST[index].insert(key, value);
-    elementCount++;
+    elementCount++;        
 }
 
 bool HashTable::search(const string& key, string& value) {
@@ -29,7 +29,6 @@ bool HashTable::search(const string& key, string& value) {
 }
 
 bool HashTable::remove(const string& key) {
-    resizeIfNeeded();
     int index = hash1(key);
     if (tableBST[index].remove(key)) {
         elementCount--;
@@ -53,7 +52,7 @@ void HashTable::printTable() {
 
 // Resize if load factor exceeds threshold
 void HashTable::resizeIfNeeded() {
-    double loadFactor = (double)elementCount / tableSize;
+    double loadFactor = elementCount/tableSize;
     if (loadFactor > 0.75) {
         rehash();
     }
@@ -61,6 +60,7 @@ void HashTable::resizeIfNeeded() {
 
 // Double table size and rehash all elements
 void HashTable::rehash() {
+    cout << "HERE" << endl;
     int newSize = tableSize * 2;
     vector<pair<string, string>> oldElements;
 
@@ -72,7 +72,7 @@ void HashTable::rehash() {
     tableSize = newSize;
     tableBST.clear();
     tableBST.resize(newSize);
-    elementCount = 0;
+    //elementCount = 0;
 
     for (const auto& pair : oldElements) {
         insert(pair.first, pair.second);

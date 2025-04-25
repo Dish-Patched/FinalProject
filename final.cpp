@@ -2,7 +2,6 @@
 
 Final::Final() 
 { 
-    
 }
 
 string Final::cleanWord(const string& word) {
@@ -12,6 +11,8 @@ string Final::cleanWord(const string& word) {
     }
     return cleaned;
 }
+
+
 
 void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table) {
     for (const string& filename : filenames) {
