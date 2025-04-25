@@ -10,13 +10,5 @@ int main() {
 
     myTable.printTable();
 
-    // vector<set<string>> documents = {files};
-
-    // Compare all documents and calculate the scores
-    vector<int> scores = compareDocuments(files);
-
-    // Print the scores for each document
-    for (int i = 0; i < scores.size(); i++) {
-        cout << "Document " << i + 1 << " score: " << scores[i] << endl;
-    }
+    
 }
