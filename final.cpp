@@ -48,42 +48,34 @@ void Final::loadWordsIntoHashTable(const vector<string>& filenames, HashTable& t
     }
 }
 
-int calculateScore(const set<string>& doc1Words, const set<string>& doc2Words) {
-    // Intersection: Common words
-    set<string> commonWords;
-    for (const string& word : doc1Words) {
-        if (doc2Words.find(word) != doc2Words.end()) {
-            commonWords.insert(word);
+set<string> Final::readWordsFromFile(const string& filename) {
+    set<string> wordSet;
+    ifstream file(filename);
+    if (!file) {
+        cerr << "Error opening file: " << filename << endl;
+        return wordSet;
+    }
+
+    string word, line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        while (ss >> word) {
+            word = cleanWord(word);
+            if (!word.empty()) wordSet.insert(word);
         }
     }
 
-    // Union: Unique words
-    set<string> uniqueWords = doc1Words;
-    for (const string& word : doc2Words) {
-        uniqueWords.insert(word);
-    }
-
-    // Score is calculated as: number of unique words - number of common words
-    int score = uniqueWords.size() - commonWords.size();
-    return score;
+    return wordSet;
 }
 
-// Function to compare all documents and calculate the accumulated score
-vector<int> compareDocuments(const vector<set<string>>& documents) {
-    int n = documents.size();
-    vector<int> scores(n, 0);
+// Score = union size - intersection size
+int Final::calculateScore(const set<string>& inputWords, const set<string>& docWords) {
+    set<string> intersection, unionSet = inputWords;
 
-    // Compare each document with every other document
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
-            // Calculate score between document i and document j
-            int score = calculateScore(documents[i], documents[j]);
-
-            // Add score to both documents (since it's a pairwise comparison)
-            scores[i] += score;
-            scores[j] += score;
-        }
+    for (const string& word : docWords) {
+        if (inputWords.count(word)) intersection.insert(word);
+        unionSet.insert(word);
     }
 
-    return scores;
+    return unionSet.size() - intersection.size();
 }

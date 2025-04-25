@@ -10,10 +10,10 @@ int main() {
 
     myTable.printTable();
 
-    vector<set<string>> documents = {"BeaverChefs.txt", "DogWizards.txt", "EvilCats.txt", "EvilFox.txt", "ForestOwl.txt", "FutureRabbit.txt", "GnomeNecromancy.txt", "LionRoar.txt", "MarsUprising.txt", "MonkeyBusiness.txt", "StormTurtle.txt", "TortoiseandHare.txt"};
+    // vector<set<string>> documents = {files};
 
     // Compare all documents and calculate the scores
-    vector<int> scores = compareDocuments(documents);
+    vector<int> scores = compareDocuments(files);
 
     // Print the scores for each document
     for (int i = 0; i < scores.size(); i++) {

@@ -18,6 +18,8 @@ class Final
     Final();
     string cleanWord(const string& word);
     void loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table); 
+    set<string> readWordsFromFile(const string& filename);
+    int calculateScore(const set<string>& inputWords, const set<string>& docWords);
 
     private:
 
