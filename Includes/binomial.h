@@ -10,18 +10,20 @@ using namespace std;
 struct binomialNode
 {
     int key;
+    string value;
     int degree;
     binomialNode* sibling;
     binomialNode* child;
     binomialNode* parent;
 
-    binomialNode(int k);
+    binomialNode(int k, string v);
 };
 
 class BinomialHeap
 {
     private:
         binomialNode* head;
+        binomialNode* minNode;
 
         binomialNode* unionHeap(binomialNode* heap1, binomialNode* heap2);
         binomialNode* mergeTrees(binomialNode* tree1, binomialNode* tree2);
@@ -30,7 +32,7 @@ class BinomialHeap
     public:
         BinomialHeap();
 
-        void insert(int key);
+        void insert(int key, string value);
         void merge(BinomialHeap& other);
         int findMin();
         binomialNode* findMin(binomialNode*& minPrevOut);
