@@ -54,10 +54,10 @@ int main() {
             binomialNode* minNode = heap.findMin(dummyPrev);
 
             if (minNode) {
-                cout << "Lowest score (most similar): " << minNode->key 
-                     << " (" << minNode->value << ")" << endl;
+                cout << "Lowest score : " << minNode->key << " "
+                    << minNode->value << endl << endl;
             } else {
-                cout << "Heap is empty!" << endl;
+                cout << "Heap is empty!" << endl << endl;
             }
         }
         else if (user == 2) {
