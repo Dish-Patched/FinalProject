@@ -247,3 +247,20 @@ void BST::findLower(int score)
     }
     cout << endl;
 }
+
+void BST::printMax()
+{
+    if (root == nullptr)
+    {
+        cout << "Tree is empty!" << endl;
+        return;
+    }
+
+    Node2* current = root;
+    while (current->right != nullptr)
+    {
+        current = current->right;
+    }
+
+    cout << "Highest score: " << current->key << " from file: " << current->value << endl;
+}
