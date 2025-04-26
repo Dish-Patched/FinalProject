@@ -16,6 +16,10 @@ int HashTable::hash1(const string& key) const {
     return hash % tableSize;
 }
 
+int HashTable::getTableSize() {
+    return tableSize;
+}
+
 void HashTable::insert(const string& key, const string& value) {
     string existing;
     int index = hash1(key);
@@ -59,7 +63,7 @@ void HashTable::printTable() {
 
 // Resize if load factor exceeds threshold
 void HashTable::resizeIfNeeded() {
-    double loadFactor = elementCount/tableSize;
+    double loadFactor = (double)elementCount/tableSize;
     if (loadFactor > 0.75) {
         rehash();
     }

@@ -27,6 +27,7 @@ public:
     bool search(const string& key, string& value);
     bool remove(const string& key);
     void printTable();  // Optional but useful for debugging
+    int getTableSize();
 };
 
 #endif

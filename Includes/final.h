@@ -9,6 +9,7 @@
 #include <set>
 #include "hash.h"
 #include "dsw.h"
+#include "binomial.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class Final
     void loadWordsIntoHashTable(const vector<string>& filenames, HashTable& table); 
     set<string> readWordsFromFile(const string& filename);
     int calculateScore(const set<string>& inputWords, const set<string>& docWords);
+    void insertHashTableToHeap(HashTable& table, BinomialHeap& heap);
 
     private:
 
