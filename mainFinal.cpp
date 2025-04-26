@@ -13,6 +13,7 @@ int main() {
     HashTable myTable(653);
     Final a;
     BST plagiarismTree;
+    BinomialHeap heap;
 
     vector<string> fullPaths;
     for (const string& f : files) {
@@ -26,6 +27,7 @@ int main() {
         set<string> docWords = a.readWordsFromFile(folder + doc);
         int score = a.calculateScore(inputWords, docWords);
         plagiarismTree.insert(score, doc);
+        heap.insert(score, doc);
     }
 
     plagiarismTree.dswBalance();
@@ -47,6 +49,16 @@ int main() {
 
         if (user == 1) {
             plagiarismTree.printMax();
+            
+            binomialNode* dummyPrev = nullptr;
+            binomialNode* minNode = heap.findMin(dummyPrev);
+
+            if (minNode) {
+                cout << "Lowest score (most similar): " << minNode->key 
+                     << " (" << minNode->value << ")" << endl;
+            } else {
+                cout << "Heap is empty!" << endl;
+            }
         }
         else if (user == 2) {
             cout << "\nFinal Balanced Tree (Score : Filename):" << endl;
