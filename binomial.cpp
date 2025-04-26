@@ -78,6 +78,7 @@ void BinomialHeap::linkTrees(binomialNode*& prev, binomialNode*& cur, binomialNo
 BinomialHeap::BinomialHeap()
 {
     head = nullptr;
+    minNode = nullptr;
 }
 
 void BinomialHeap::insert(int key, string value)
@@ -86,6 +87,9 @@ void BinomialHeap::insert(int key, string value)
     tempHeap.head = new binomialNode(key, value);
 
     head = unionHeap(head, tempHeap.head);
+
+    if (!minNode || key < minNode->key)
+        minNode = tempHeap.head;
 
     if(!head || !head->sibling)
         return;
@@ -123,48 +127,16 @@ void BinomialHeap::merge(BinomialHeap& other)
 
 binomialNode* BinomialHeap::findMin(binomialNode*& minPrevOut)
 {
-    if (!head) return nullptr;
-
-    binomialNode* minNode = head;
-    minPrevOut = nullptr;
-
-    binomialNode* prev = nullptr;
-    binomialNode* curr = head;
-    int minKey = head->key;
-
-    while (curr) {
-        if (curr->key < minKey) {
-            minKey = curr->key;
-            minNode = curr;
-            minPrevOut = prev;
-        }
-        prev = curr;
-        curr = curr->sibling;
-    }
-
+    if (!minNode)
+        return nullptr;
     return minNode;
 }
 
 int BinomialHeap::findMin()
 {
-    if(!head)
+    if (!minNode)
         return -1;
-    
-    binomialNode* minNode = head;
-    int minKey = head->key;
-
-    binomialNode* temp = head->sibling;
-    while(temp)
-    {
-        if(temp->key < minKey)
-        {
-            minKey = temp->key;
-            minNode = temp;
-        }
-        temp = temp->sibling;
-    }
-
-    return minKey;
+    return minNode->key;
 }
 
 
@@ -173,17 +145,15 @@ void BinomialHeap::deleteMin() {
         return; 
 
     binomialNode* minPrev = nullptr;
-    binomialNode* minNode = findMin(minPrev);  // Your internal helper version
+    binomialNode* delNode = findMin(minPrev);  
 
-    // Remove minNode from root list
     if (minPrev) {
-        minPrev->sibling = minNode->sibling;
+        minPrev->sibling = delNode->sibling;
     } else {
-        head = minNode->sibling;
+        head = delNode->sibling;
     }
 
-    // Reverse minNode's children
-    binomialNode* child = minNode->child;
+    binomialNode* child = delNode->child;
     binomialNode* reversed = nullptr;
 
     while (child) {
@@ -194,12 +164,23 @@ void BinomialHeap::deleteMin() {
         child = next;
     }
 
-    // Merge reversed children back into heap
     BinomialHeap tempHeap;
     tempHeap.head = reversed;
     merge(tempHeap);
 
-    delete minNode;
+    delete delNode;
+
+    if (!head) {
+        minNode = nullptr;
+    } else {
+        minNode = head;
+        binomialNode* temp = head->sibling;
+        while (temp) {
+            if (temp->key < minNode->key)
+                minNode = temp;
+            temp = temp->sibling;
+        }
+    }
 }
 
 

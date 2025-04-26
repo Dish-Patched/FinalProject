@@ -23,6 +23,7 @@ class BinomialHeap
 {
     private:
         binomialNode* head;
+        binomialNode* minNode;
 
         binomialNode* unionHeap(binomialNode* heap1, binomialNode* heap2);
         binomialNode* mergeTrees(binomialNode* tree1, binomialNode* tree2);
