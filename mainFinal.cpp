@@ -54,7 +54,7 @@ int main() {
             binomialNode* minNode = heap.findMin(dummyPrev);
 
             if (minNode) {
-                cout << "Lowest score : " << minNode->key << " "
+                cout << "Lowest score : " << minNode->key << " from file: "
                     << minNode->value << endl << endl;
             } else {
                 cout << "Heap is empty!" << endl << endl;
