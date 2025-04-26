@@ -48,6 +48,7 @@ public:
     void display();
     void findHigher(int score);
     void findLower(int score);
+    void printMax();
 };
 
 #endif

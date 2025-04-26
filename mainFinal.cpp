@@ -30,6 +30,7 @@ int main() {
     while(user != 0)
     {
         cout << "Actions menu: " << endl;
+        cout << "Lower scores = More similar. Higher scores = Less similar" << endl;
         cout << "1. View highest and lowest scores." <<endl;
         cout << "2. See tree of all scores." <<endl;
         cout << "3. See scores higher than..." <<endl;
@@ -42,7 +43,7 @@ int main() {
         int userin;
 
         if(user == 1){
-
+        plagiarismTree.printMax();
         }
         else if(user == 2){
             cout << "\nFinal Balanced Tree (Score : Filename):" << endl;
