@@ -112,6 +112,40 @@ void BST::printTree(Node2* root, int space)
     printTree(root->left, space);
 }
 
+void BST::findHigher(Node2* node, int score, vector<Node2*>& result)
+{
+    if (node == nullptr)
+        return;
+
+    if (node->key > score)
+    {
+        result.push_back(node);
+        findHigher(node->left, score, result); 
+        findHigher(node->right, score, result);
+    }
+    else
+    {
+        findHigher(node->right, score, result);
+    }
+}
+
+void BST::findLower(Node2* node, int score, vector<Node2*>& result)
+{
+    if (node == nullptr)
+        return;
+
+    if (node->key < score)
+    {
+        result.push_back(node);
+        findLower(node->left, score, result);
+        findLower(node->right, score, result);
+    }
+    else
+    {
+        findLower(node->left, score, result);  
+    }
+}
+
 // -------------------------- PUBLIC ----------------------------------
 
 BST::BST()
@@ -176,5 +210,40 @@ void BST::display()
 {
     cout << endl;
     printTree(root, 0);
+    cout << endl;
+}
+
+void BST::findHigher(int score)
+{
+    vector<Node2*> result;
+    findHigher(root, score, result);
+    
+    if (result.empty())
+    {
+        cout << "No files with scores higher than " << score << "." << endl << endl;
+    }
+    else
+    {
+        cout << "Files with scores higher than " << score << ":\n";
+        for (auto node : result)
+            cout << node->key << " : " << node->value << endl;
+    }
+    cout << endl;
+}
+
+void BST::findLower(int score)
+{
+    vector<Node2*> result;
+    findLower(root, score, result);
+    if (result.empty())
+    {
+        cout << "No files with scores lower than " << score << "." << endl << endl;
+    }
+    else
+    {
+        cout << "Files with scores lower than " << score << ":\n";
+        for (auto node : result)
+            cout << node->key << " : " << node->value << endl;
+    }
     cout << endl;
 }

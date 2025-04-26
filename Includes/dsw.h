@@ -36,15 +36,18 @@ private:
     void performRotations(int count);   
     void printTree(Node2* root, int space);
     void insert(Node2*& node, int key, const string& value);
+    void findHigher(Node2* node, int score, vector<Node2*>& result);
+    void findLower(Node2* node, int score, vector<Node2*>& result);
 
 public:
     BST();
     ~BST();
     void deleteTree(Node2*& root);
-
     void insert(int key, const string& value);
     void dswBalance();
     void display();
+    void findHigher(int score);
+    void findLower(int score);
 };
 
 #endif
