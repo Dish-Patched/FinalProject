@@ -1,8 +1,9 @@
 #include "binomial.h"
 
-binomialNode::binomialNode(int k)
+binomialNode::binomialNode(int k, string v)
 {
     key = k;
+    value = v;
     degree = 0;
     parent = nullptr;
     sibling = nullptr;
@@ -79,10 +80,10 @@ BinomialHeap::BinomialHeap()
     head = nullptr;
 }
 
-void BinomialHeap::insert(int key)
+void BinomialHeap::insert(int key, string value)
 {
     BinomialHeap tempHeap;
-    tempHeap.head = new binomialNode(key);
+    tempHeap.head = new binomialNode(key, value);
 
     head = unionHeap(head, tempHeap.head);
 
