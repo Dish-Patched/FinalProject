@@ -20,6 +20,10 @@ int HashTable::getTableSize() {
     return tableSize;
 }
 
+const vector<AVLHashTree>& HashTable::getTable() const {
+    return tableBST;
+}
+
 void HashTable::insert(const string& key, const string& value) {
     string existing;
     int index = hash1(key);

@@ -28,6 +28,7 @@ public:
     bool remove(const string& key);
     void printTable();  // Optional but useful for debugging
     int getTableSize();
+    const vector<AVLHashTree>& getTable() const;  
 };
 
 #endif
