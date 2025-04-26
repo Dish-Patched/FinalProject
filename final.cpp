@@ -80,6 +80,10 @@ int Final::calculateScore(const set<string>& inputWords, const set<string>& docW
     return unionSet.size() - intersection.size();
 }
 
+int computeScore(const string& filename) {
+    return filename.length(); 
+}
+
 void Final::insertHashTableToHeap(HashTable& table, BinomialHeap& heap) {
     for (int i = 0; i < table.getTableSize(); ++i) {
         vector<pair<string, string>> elements = table.getTable()[i].inOrderTraversal();
@@ -89,7 +93,7 @@ void Final::insertHashTableToHeap(HashTable& table, BinomialHeap& heap) {
             stringstream ss(value);
             string filename;
             while (getline(ss, filename, ',')) {
-                int score = calculateScore(filename);  // You define this function!
+                int score = computeScore(filename);  // You define this function!
                 heap.insert(score, filename);
             }
         }
