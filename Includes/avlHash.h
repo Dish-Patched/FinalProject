@@ -8,7 +8,7 @@
 using namespace std;
 
 struct Node {
-    pair<string, string> data; // Store key-value pair
+    pair<string, string> data;
     Node* left;
     Node* right;
     int height;
