@@ -93,7 +93,7 @@ void Final::insertHashTableToHeap(HashTable& table, BinomialHeap& heap) {
             stringstream ss(value);
             string filename;
             while (getline(ss, filename, ',')) {
-                int score = computeScore(filename);  // You define this function!
+                int score = computeScore(filename);  
                 heap.insert(score, filename);
             }
         }
