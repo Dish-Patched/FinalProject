@@ -26,7 +26,7 @@ public:
     void insert(const string& key, const string& value);
     bool search(const string& key, string& value);
     bool remove(const string& key);
-    void printTable();  // Optional but useful for debugging
+    void printTable();  
     int getTableSize();
     const vector<AVLHashTree>& getTable() const;  
 };

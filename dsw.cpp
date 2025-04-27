@@ -193,7 +193,6 @@ void BST::dswBalance()
         return;
 
     createVine();
-    //display(); // You can comment this if you don't want intermediate output
 
     int size = 0;
     Node2* temp = root;
