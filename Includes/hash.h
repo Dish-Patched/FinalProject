@@ -13,7 +13,7 @@ private:
     int tableSize;
     int elementCount;
 
-    vector<AVLHashTree> tableBST;  // Only using BST for chaining
+    vector<AVLHashTree> tableBST;
 
     int hash1(const string& key) const;
     void resizeIfNeeded();
